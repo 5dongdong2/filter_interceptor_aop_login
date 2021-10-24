@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{../css/bootstrap.min.css}" rel="stylesheet">
+    <title>회원가입</title>
+</head>
+<body>
+
+<div>
+    <form action="loginForm.html" th:action="@{/join}" th:object="${joinDto}" method="post">
+        <label for="member_id">ID</label>
+        <input type="text" id="member_id" th:field="*{member_id}"></input>
+        <label for="member_password">Password</label>
+        <input type="password" id="member_password" th:field="*{member_password}"></input>
+        <label for="member_password_check">Password Check</label>
+        <input type="password" id="member_password_check" th:field="*{member_password_check}"></input>
+        <label for="member_name">이름</label>
+        <input type="text" id="member_name" th:field="*{member_name}"></input>
+        <button type="submit">가입 완료</button>
+        <button><a href="javascript:void(0);" th:href="@{/login}">취소</a></button>
+    </form>
+
+</div>
+
+</body>
+</html>

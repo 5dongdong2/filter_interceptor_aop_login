@@ -15,35 +15,20 @@ public class LoginService {
         this.loginMapper = loginMapper;
     }
 
-    /**
-     * 로그인
-     * @param member
-     * @return 성공: true
-     */
     public Member login(Member member) {
-        Member memberByDB = loginMapper.findMemberByMemberId(member.getMember_id());
+        Member memberByDB = loginMapper.findMemberByMemberId(member.getMemberId());
         if (memberByDB == null) {
             return null;
-        } else if (!memberByDB.getMember_password().equals(member.getMember_password())) {
+        } else if (!memberByDB.getMemberPassword().equals(member.getMemberPassword())) {
             return null;
         }
         return memberByDB;
     }
 
-    /**
-     * 중복검사
-     * @param member_id
-     * @return 실패: true
-     */
     public Boolean idCheck(String member_id) {
         return loginMapper.findIdById(member_id) != null;
     }
 
-    /**
-     * 회원가입
-     * @param member
-     * @return 성공 true
-     */
     public Boolean join(Member member) {
         loginMapper.join(member);
         return true;

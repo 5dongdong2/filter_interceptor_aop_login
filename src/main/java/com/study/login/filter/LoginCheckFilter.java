@@ -12,7 +12,7 @@ import java.io.IOException;
 @Slf4j
 public class LoginCheckFilter implements Filter {
 
-    private static final String[] whitelist = {"/", "/logout", "/css/*"};
+    private static final String[] whitelist = {"/", "/login", "/join", "/logout", "/css/*"};
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -27,7 +27,7 @@ public class LoginCheckFilter implements Filter {
                 log.info("Login Authentication [UUID={} / URI={}]", httpRequest.getAttribute("uuid"), requestURI);
 
                 HttpSession session = httpRequest.getSession(false);
-                if (session == null || session.getAttribute("member_idx") == null) {
+                if (session == null || session.getAttribute("memberIdx") == null) {
                     log.info("Authentication failed [UUID={} / URI={}]", httpRequest.getAttribute("uuid"), requestURI);
 
                     httpResponse.sendRedirect("/login?redirectURI" + requestURI);

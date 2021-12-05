@@ -20,8 +20,8 @@ public class LoginDto {
 
     public Member getMember() {
         Member member = new Member();
-        member.setMember_id(this.member_id);
-        member.setMember_password(this.member_password);
+        member.setMemberId(this.member_id);
+        member.setMemberPassword(this.member_password);
         return member;
     }
 }

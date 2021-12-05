@@ -23,15 +23,15 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+            <tr th:each="board, boardStat : ${boards}">
+                <td th:text="${boardStat.count}">번호</td>
+                <td th:text="${board.boardTitle}">제목</td>
+                <td th:text="${board.boardContent}">내용</td>
+                <td th:text="${board.memberName}">작성자</td>
+                <td th:text="${board.boardLike}">좋아요</td>
+                <td th:text="${board.boardDislike}">싫어요</td>
+                <td th:text="${board.boardViews}">조회수</td>
+                <td th:text="${board.boardUpdateDate}">작성날짜</td>
             </tr>
             </tbody>
         </table>

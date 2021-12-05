@@ -9,8 +9,8 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Member {
-    private Long member_idx;
-    private String member_id;
-    private String member_password;
-    private String member_name;
+    private Long memberIdx;
+    private String memberId;
+    private String memberPassword;
+    private String memberName;
 }

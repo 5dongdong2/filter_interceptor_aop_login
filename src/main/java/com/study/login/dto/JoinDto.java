@@ -22,13 +22,13 @@ public class JoinDto {
     private String member_password_check;
 
     @NotBlank
-    private String member_name;
+    private String memberName;
 
     public Member getMember(){
         Member member = new Member();
-        member.setMember_id(this.member_id);
-        member.setMember_password(this.member_password);
-        member.setMember_name(this.member_name);
+        member.setMemberId(this.member_id);
+        member.setMemberPassword(this.member_password);
+        member.setMemberName(this.memberName);
         return member;
     }
 

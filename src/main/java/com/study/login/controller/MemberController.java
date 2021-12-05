@@ -1,6 +1,6 @@
 package com.study.login.controller;
 
-import com.study.login.domain.BoardForList;
+import com.study.login.domain.Boards;
 import com.study.login.domain.Member;
 import com.study.login.dto.JoinDto;
 import com.study.login.dto.LoginDto;
@@ -43,36 +43,35 @@ public class MemberController {
     @PostMapping("/login")
     public String login(@Validated @ModelAttribute LoginDto loginDto, BindingResult bindingResult, Model model, HttpServletRequest request) throws URISyntaxException {
         System.out.println("MemberController.login");
-        //session check(will move to filter later)
-        HttpSession session = request.getSession();
-        if (session.getAttribute("member_idx") != null) {
-            return "login/loginForm";
-        }
-        //공백 처리
+
         if (bindingResult.hasErrors()) {
             log.info("NotBlankError: loginDto={}", loginDto);
             return "login/loginForm";
         }
-        //로그인 실패
+
         Member member = loginService.login(loginDto.getMember());
         if (member == null) {
             bindingResult.reject("loginError", null);
             return "login/loginForm";
         }
-        session.setAttribute("member_idx", member.getMember_idx());
+
+        HttpSession session = request.getSession();
+        session.setAttribute("memberIdx", member.getMemberIdx());
         log.info("로그인 성공!");
+
         //게시글 리스트 가져오기
         RestTemplate restTemplate = new RestTemplate();
-        URI uri = new URI("http://58.123.161.218:8085/board/list");
-        List<BoardForList> boardList = restTemplate.getForObject(uri, (new ArrayList<BoardForList>()).getClass());
-        log.info("response data={}", boardList);
+//        URI uri = new URI("http://58.123.161.218:8085/board/list");
+//        URI uri = new URI("http://192.168.0.14:8085/board/list");
+        URI uri = new URI("http://localhost:18080/boards?page=1");
+        List<Boards> boards = restTemplate.getForObject(uri, (new ArrayList<Boards>()).getClass());
+        model.addAttribute("boards", boards);
+        log.info("response data={}", boards);
 //        MultiValueMap<String, String> headers = new HttpHeaders();
 //        headers.add("Accept", "application/json");
 //        headers.add("Content-type", "application/json");
 //        RequestEntity<String> requestEntity = new RequestEntity<>(null, headers,HttpMethod.GET, uri);
-
-//        return "board/board";
-        return "redirect:/join";
+        return "board/boards";
     }
 
     @GetMapping("/join")
@@ -109,11 +108,11 @@ public class MemberController {
         return "redirect:/login";
     }
 
-    @RequestMapping("/members") //POST
+    @GetMapping("/members")
     public String members(Model model){
         System.out.println("MemberController.members");
-        Member member = loginService.findAll();
-        model.addAttribute("member", member);
+        Member members = loginService.findAll();
+        model.addAttribute("members", members);
         return "login/members";
     }
 }

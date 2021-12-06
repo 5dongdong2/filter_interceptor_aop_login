@@ -18,12 +18,12 @@ public class LogFilter implements Filter {
         request.setAttribute("uuid", uuid);
 
         try {
-            log.info("Request [UUID={} / URI={}]", uuid, requestURI);
+            log.info("Request Filter [UUID={}][URI={}]", uuid, requestURI);
             chain.doFilter(request, response);
         } catch (IOException e) {
             throw e;
         } finally {
-            log.info("Response [UUID={} / URI={}]", uuid, requestURI);
+            log.info("Response Filter [UUID={}][URI={}]", uuid, requestURI);
         }
     }
 

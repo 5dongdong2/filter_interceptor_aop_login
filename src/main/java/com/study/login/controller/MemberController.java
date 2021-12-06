@@ -34,7 +34,6 @@ public class MemberController {
 
     @GetMapping("/login")
     public String loginForm(Model model) {
-        System.out.println("MemberController.loginForm");
         model.addAttribute("loginDto", new LoginDto());
         return "login/loginForm";
     }
@@ -42,7 +41,6 @@ public class MemberController {
     @CrossOrigin
     @PostMapping("/login")
     public String login(@Validated @ModelAttribute LoginDto loginDto, BindingResult bindingResult, Model model, HttpServletRequest request) throws URISyntaxException {
-        System.out.println("MemberController.login");
 
         if (bindingResult.hasErrors()) {
             log.info("NotBlankError: loginDto={}", loginDto);
@@ -63,7 +61,7 @@ public class MemberController {
         RestTemplate restTemplate = new RestTemplate();
 //        URI uri = new URI("http://58.123.161.218:8085/board/list");
 //        URI uri = new URI("http://192.168.0.14:8085/board/list");
-        URI uri = new URI("http://localhost:18080/boards?page=1");
+        URI uri = new URI("http://192.168.0.14:8086/boards?page=1");
         List<Boards> boards = restTemplate.getForObject(uri, (new ArrayList<Boards>()).getClass());
         model.addAttribute("boards", boards);
         log.info("response data={}", boards);
@@ -76,14 +74,12 @@ public class MemberController {
 
     @GetMapping("/join")
     public String joinForm(Model model) {
-        System.out.println("MemberController.joinForm");
         model.addAttribute("joinDto", new JoinDto());
         return "login/joinForm";
     }
 
     @PostMapping("/join")
     public String join(@Validated @ModelAttribute JoinDto joinDto,BindingResult bindingResult ,Model model) {
-        System.out.println("MemberController.join");
         //공백 처리
         if (bindingResult.hasErrors()) {
             log.info("NotBlankError: joinDto={}", joinDto);
@@ -110,7 +106,6 @@ public class MemberController {
 
     @GetMapping("/members")
     public String members(Model model){
-        System.out.println("MemberController.members");
         Member members = loginService.findAll();
         model.addAttribute("members", members);
         return "login/members";

@@ -59,9 +59,8 @@ public class MemberController {
 
         //게시글 리스트 가져오기
         RestTemplate restTemplate = new RestTemplate();
-//        URI uri = new URI("http://58.123.161.218:8085/board/list");
-//        URI uri = new URI("http://192.168.0.14:8085/board/list");
-        URI uri = new URI("http://192.168.0.14:8086/boards?page=1");
+        URI uri = new URI("http://58.123.161.218:8086/boards?page=1");
+//        URI uri = new URI("http://192.168.0.14:8086/boards?page=1");
         List<Boards> boards = restTemplate.getForObject(uri, (new ArrayList<Boards>()).getClass());
         model.addAttribute("boards", boards);
         log.info("response data={}", boards);

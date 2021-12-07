@@ -1,7 +1,7 @@
-package com.study.login;
+package com.study.login.aspect;
 
-import com.study.login.interceptor.LogInterceptor;
-import com.study.login.interceptor.LoginCheckInterceptor;
+import com.study.login.aspect.interceptor.LogInterceptor;
+import com.study.login.aspect.interceptor.LoginCheckInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;

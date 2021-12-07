@@ -1,4 +1,4 @@
-package com.study.login.interceptor;
+package com.study.login.aspect.interceptor;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

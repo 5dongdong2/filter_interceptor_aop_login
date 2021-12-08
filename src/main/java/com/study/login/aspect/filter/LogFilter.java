@@ -14,16 +14,21 @@ public class LogFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         String requestURI = httpRequest.getRequestURI();
+
+        if (requestURI.contains("/css")) {
+            chain.doFilter(request, response);
+            return;
+        }
+
         String uuid = UUID.randomUUID().toString();
         request.setAttribute("uuid", uuid);
 
         try {
             log.info("Request Filter [UUID={}][URI={}]", uuid, requestURI);
             chain.doFilter(request, response);
+            log.info("Response Filter [UUID={}][URI={}]", uuid, requestURI);
         } catch (IOException e) {
             throw e;
-        } finally {
-            log.info("Response Filter [UUID={}][URI={}]", uuid, requestURI);
         }
     }
 

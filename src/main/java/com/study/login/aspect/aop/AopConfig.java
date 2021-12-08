@@ -10,10 +10,11 @@ import org.springframework.util.StopWatch;
 
 @Aspect
 @Slf4j
-public class aopConfig {
+@Component
+public class AopConfig {
 
 //    @Around("execution(com.study.login.service..*.*())")
-    @Around("execution(com.study.login.service.LoginService.*(..)")
+    @Around("@annotation(StopWatch)")
     public Object measureTime(ProceedingJoinPoint joinPoint) throws Throwable {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
@@ -28,10 +29,10 @@ public class aopConfig {
         return result;
     }
 
-    @Before("execution(com.study.login..*.*())")
-    public void logging(ProceedingJoinPoint joinPoint) throws Throwable {
-        String methodName = joinPoint.getSignature().getName();
-        log.info("method name=[{}]", methodName);
-    }
+//    @Before("execution(com.study.login..*.*())")
+//    public void logging(ProceedingJoinPoint joinPoint) throws Throwable {
+//        String methodName = joinPoint.getSignature().getName();
+//        log.info("method name=[{}]", methodName);
+//    }
 
 }

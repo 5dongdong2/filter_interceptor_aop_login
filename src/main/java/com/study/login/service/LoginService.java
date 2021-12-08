@@ -1,5 +1,6 @@
 package com.study.login.service;
 
+import com.study.login.aspect.aop.StopWatch;
 import com.study.login.domain.Member;
 import com.study.login.mapper.LoginMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ public class LoginService {
         this.loginMapper = loginMapper;
     }
 
+    @StopWatch
     public Member login(Member member) {
         Member memberByDB = loginMapper.findMemberByMemberId(member.getMemberId());
         if (memberByDB == null) {
@@ -25,15 +27,18 @@ public class LoginService {
         return memberByDB;
     }
 
+    @StopWatch
     public Boolean idCheck(String member_id) {
         return loginMapper.findIdById(member_id) != null;
     }
 
+    @StopWatch
     public Boolean join(Member member) {
         loginMapper.join(member);
         return true;
     }
 
+    @StopWatch
     public Member findAll() {
         return loginMapper.findAll();
     }
